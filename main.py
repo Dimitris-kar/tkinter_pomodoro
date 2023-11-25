@@ -13,8 +13,8 @@ YELLOW = "#f7f5dd"
 FONT_NAME = "Times New Roman"
 
 # Time constants in minutes
-WORK_MIN = 0.1
-SHORT_BREAK_MIN = 0.1
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 
 # Global variables to keep track of the timer and repetitions
@@ -28,7 +28,7 @@ def reset_timer():
     # Cancel any ongoing timer
     window.after_cancel(timer)
     # Reset the displayed timer text to "00:00"
-    canvas.itemconfig(timer_text, text="00:00")
+    canvas.itemconfig(timer_text, text="25:00")
     header.config(text="Timer")
     tick.config(text="")
     reps = 0
@@ -92,7 +92,7 @@ window.config(padx=100, pady=50, background=YELLOW, borderwidth=4, relief="groov
 canvas = Canvas(width=210, height=224, bg=YELLOW, highlightthickness=0)
 tomato_img = PhotoImage(file="tomato.png")
 canvas.create_image(103, 112, image=tomato_img)
-timer_text = canvas.create_text(103, 128, text="00:00", font=(FONT_NAME, 20, "bold"), fill="white")
+timer_text = canvas.create_text(103, 128, text="25:00", font=(FONT_NAME, 20, "bold"), fill="white")
 canvas.grid(column=1, row=1)
 
 # Labels for the timer header and completion tick
@@ -102,17 +102,25 @@ header.grid(column=1, row=0)
 tick = Label(fg=GREEN, font=(FONT_NAME, 24, "bold"))
 tick.grid(column=1, row=2)
 
+# Dropdown time selection menu
+time_options = [25, 15, 10]
+
+# datatype of menu text
+clicked = StringVar()
+
+# Radio buttons timer selection
+
 # Buttons to start and reset the timer and to exit the app
 start_button = Button(text="Start", command=start_timer)
-start_button.config(font=(FONT_NAME, 14, "bold"), cursor="hand2", activebackground=GREEN)
+start_button.config(font=(FONT_NAME, 14, "bold"), cursor="hand2", activeforeground=GREEN)
 start_button.grid(column=0, row=2)
 
 reset_button = Button(text="Reset", command=reset_timer)
-reset_button.config(font=(FONT_NAME, 14, "bold"), cursor="hand2", activebackground=GREEN)
+reset_button.config(font=(FONT_NAME, 14, "bold"), cursor="hand2", activeforeground=GREEN)
 reset_button.grid(column=2, row=2)
 
 exit_button = Button(text="Exit", command=exit_app)
-exit_button.config(font=(FONT_NAME, 14, "bold"), cursor="hand2", activebackground=RED,
+exit_button.config(font=(FONT_NAME, 14, "bold"), cursor="hand2", foreground=RED, activeforeground=RED,
                    padx=20, borderwidth=4, relief="ridge")
 exit_button.grid(column=1, row=3)
 # Start the Tkinter event loop
